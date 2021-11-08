@@ -21,7 +21,7 @@ import {
   Col,
 } from "reactstrap";
 // layout for this page
-import Admin from "layouts/Admin.js";
+import Admin from "layouts/Seller.js";
 // core components
 import {
   chartOptions,
@@ -57,7 +57,7 @@ const Dashboard = (props) => {
                 <Row className="align-items-center">
                   <div className="col">
                     <h6 className="text-uppercase text-light ls-1 mb-1">
-                      Overview hhhhhhhhhhhhhhhhhhhhhhh
+                      Overview
                     </h6>
                     <h2 className="text-white mb-0">Sales value</h2>
                   </div>

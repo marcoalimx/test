@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from '@apollo/client';
 import { getCompanys } from '../../graphql/queries';
+import Link from "next/link";
 
 // reactstrap components
 import {
@@ -16,6 +17,7 @@ import {
   InputGroup,
   Row,
   Col,
+  NavLink
 } from "reactstrap";
 // layout for this page
 import Auth from "layouts/Auth.js";
@@ -33,16 +35,6 @@ function Register() {
         <Card className="bg-secondary shadow border-0">
           <CardBody className="px-lg-5 py-lg-5">
             <Form role="form">
-              <FormGroup>
-                <InputGroup className="input-group-alternative mb-3">
-                  <InputGroupAddon addonType="prepend">
-                    <InputGroupText>
-                      <i className="ni ni-hat-3" />
-                    </InputGroupText>
-                  </InputGroupAddon>
-                  <Input placeholder="Name" type="text" />
-                </InputGroup>
-              </FormGroup>
               <FormGroup>
                 <InputGroup className="input-group-alternative mb-3">
                   <InputGroupAddon addonType="prepend">
@@ -71,39 +63,38 @@ function Register() {
                   />
                 </InputGroup>
               </FormGroup>
-              <div className="text-muted font-italic">
-                <small>
-                  password strength:{" "}
-                  <span className="text-success font-weight-700">strong</span>
-                </small>
-              </div>
+              <FormGroup>
+                <InputGroup className="input-group-alternative">
+                  <InputGroupAddon addonType="prepend">
+                    <InputGroupText>
+                      <i className="ni ni-lock-circle-open" />
+                    </InputGroupText>
+                  </InputGroupAddon>
+                  <Input
+                    placeholder="Confirmar password"
+                    type="password"
+                    autoComplete="new-password"
+                  />
+                </InputGroup>
+              </FormGroup>
               <Row className="my-4">
                 <Col xs="12">
-                  <div className="custom-control custom-control-alternative custom-checkbox">
-                    <input
-                      className="custom-control-input"
-                      id="customCheckRegister"
-                      type="checkbox"
-                    />
-                    <label
-                      className="custom-control-label"
-                      htmlFor="customCheckRegister"
-                    >
-                      <span className="text-muted">
-                        I agree with the{" "}
-                        <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                          Privacy Policy
-                        </a>
-                      </span>
-                    </label>
+                  <div className="text-center">
+                    <Button className="mt-4" color="primary" type="button">
+                      REGISTRARME
+                    </Button>
+                  </div>
+                </Col>
+                <Col xs="12">
+                  <div className="text-center mt-4">
+                  <Link href="/auth/login">
+                      <NavLink className="nav-link-icon">
+                        <span className="nav-link-inner--text">Iniciar sesión</span>
+                      </NavLink>
+                    </Link>
                   </div>
                 </Col>
               </Row>
-              <div className="text-center">
-                <Button className="mt-4" color="primary" type="button">
-                  Create account cccc
-                </Button>
-              </div>
             </Form>
           </CardBody>
         </Card>
