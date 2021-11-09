@@ -1,8 +1,8 @@
-import gql from 'graphql-tag';
+import { gql } from '@apollo/client';
 
-export const getCompanys = gql`
-  query getNamesCompanys {
-    getNamesCompanys {
+export const getProducts = gql`
+  query getProducts {
+    getProducts {
       statusCode
       message
       error

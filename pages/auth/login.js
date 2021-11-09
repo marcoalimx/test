@@ -1,5 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import Link from "next/link";
+import { useMutation } from '@apollo/client';
+import { login } from '../../graphql/mutations';
+import Router from "next/router";
 
 // reactstrap components
 import {
@@ -15,12 +18,66 @@ import {
   InputGroup,
   Row,
   Col,
-  NavLink
+  NavLink,
+  FormFeedback
 } from "reactstrap";
 // layout for this page
 import Auth from "layouts/Auth.js";
 
 function Login() {
+  const [emailInput, setEmailInput] = useState("");
+  const [errorEmailInput, setErrorEmailInput] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [errorPasswordInput, setErrorPasswordInput] = useState(false);
+
+  const [loginMutation] = useMutation(login, {
+    onCompleted({ login }) {
+      if (login.statusCode === 200) {
+        const response = JSON.parse(login.response);
+        if(response.role == "adminstrador"){
+          Router.push("/admin/register");
+        }else if (response.role == "vendedor"){
+          Router.push("/buyer/dashboard");
+        }else if (response.role == "comprador"){
+          Router.push("/seller/dashboard");
+        }else{
+          Router.push("/public/dashboard");
+        }
+      }
+    },
+    onError(error) {},
+  });
+
+  const submitLogin = () =>{
+    if(emailInput === ""){
+      console.log("Email requerido")
+      setErrorEmailInput(true)
+    }else {
+      setErrorEmailInput(false)
+    }
+    if (passwordInput === ""){
+      console.log("Password requerido")
+      setErrorPasswordInput(true);
+    }else{
+      setErrorPasswordInput(false);
+    }
+    if(!errorEmailInput && !errorPasswordInput){
+      console.log("Login")
+      const input = {
+        email: emailInput,
+        password: passwordInput,
+      };      
+      loginMutation({  variables: { input }  });
+    }
+  }
+
+  const onChangeEmail = (value) =>{
+    setEmailInput(value)
+  }
+  const onChangePassword = (value) =>{
+    setPasswordInput(value)
+  }
+
   return (
     <>
       <Col lg="5" md="7">
@@ -38,7 +95,10 @@ function Login() {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+                    onChange={(e) => onChangeEmail(`${e.target.value}`)}
+                    invalid={errorEmailInput}
                   />
+                  <FormFeedback>{"El campo email es requerido"}</FormFeedback>
                 </InputGroup>
               </FormGroup>
               <FormGroup>
@@ -52,14 +112,17 @@ function Login() {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
+                    invalid={errorPasswordInput}
+                    onChange={(e) => onChangePassword(`${e.target.value}`)}
                   />
+                  <FormFeedback>{"El campo password es requerido"}</FormFeedback>
                 </InputGroup>
               </FormGroup>
               
               <Row className="my-4">
                 <Col xs="12">
                   <div className="text-center">
-                    <Button className="mt-4" color="primary" type="button">
+                    <Button className="mt-4" color="primary" type="button" onClick={submitLogin}>
                       Iniciar sesión
                     </Button>
                   </div>

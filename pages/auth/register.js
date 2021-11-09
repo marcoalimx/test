@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from '@apollo/client';
-import { getCompanys } from '../../graphql/queries';
+import { getProducts } from '../../graphql/queries';
 import Link from "next/link";
 
 // reactstrap components
@@ -23,11 +23,11 @@ import {
 import Auth from "layouts/Auth.js";
 
 function Register() {
-  const getCompany = (dat) => {
-    console.log(dat.getNamesCompanys.response);
+  const getProductsResponse = (dat) => {
+    console.log(dat.getProducts);
   };
-  const getCompanysData = useQuery(getCompanys, {
-    onCompleted: (data) => getCompany(data),
+  const getProductsData = useQuery(getProducts, {
+    onCompleted: (data) => getProductsResponse(data),
   });
   return (
     <>

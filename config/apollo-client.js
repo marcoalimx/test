@@ -2,7 +2,7 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import fetch from 'node-fetch';
 
-const urlService = 'https://solvo-api-dev.alimx.mx/';
+const urlService = 'http://localhost:5001/';
 
 const httpLink = new HttpLink({
   uri: urlService,
