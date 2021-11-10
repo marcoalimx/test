@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import GenericNavbar from "components/Navbars/GenericNavbar.js";
 import routes from "routes.js";
 
 function Admin(props) {
@@ -23,7 +23,7 @@ function Admin(props) {
   return (
     <>
       <div className="main-content" ref={mainContentRef}>
-        <AdminNavbar {...props} brandText={getBrandText()} />
+        <GenericNavbar {...props} brandText={getBrandText()} showImage={true} />
         {props.children}
       </div>
     </>

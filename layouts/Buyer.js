@@ -1,6 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
-import BuyerNavbar from "components/Navbars/BuyerNavbar.js";
+import GenericNavbar from "components/Navbars/GenericNavbar.js";
 import routes from "routesBuyer.js";
 
 function Buyer(props) {
@@ -23,7 +23,7 @@ function Buyer(props) {
   return (
     <>
       <div className="main-content" ref={mainContentRef}>
-        <BuyerNavbar {...props} brandText={getBrandText()} />
+        <GenericNavbar {...props} brandText={getBrandText()} showImage={true} />
         {props.children}
       </div>
     </>

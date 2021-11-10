@@ -18,7 +18,7 @@ import {
   CardImg
 } from "reactstrap";
 
-function BuyerNavbar({ brandText }) {
+function GenericNavbar({ showImage }) {
   const [actionModal, setactionModal] = useState(false);
   const navigateToLogin = () =>{
     Router.push("/auth/login");
@@ -32,7 +32,7 @@ function BuyerNavbar({ brandText }) {
   const hiddenModal = () =>{
     setactionModal(false);
   }
-
+  
   return (
     <>
       <div>
@@ -62,8 +62,12 @@ function BuyerNavbar({ brandText }) {
       </div>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
       <Container fluid>
-          <NavbarBrand href="#pablo" className="pt-0" >
-            <img style={{width: 140}} alt={"..."} className="navbar-brand-img" src={require("assets/img/brand/nextjs_argon_black.png")} />
+          <NavbarBrand>
+            {
+              showImage 
+              && 
+              <img style={{width: 140}} alt={"..."} className="navbar-brand-img" src={require("assets/img/brand/nextjs_argon_black.png")} />
+            }
           </NavbarBrand>
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
@@ -82,4 +86,4 @@ function BuyerNavbar({ brandText }) {
   );
 }
 
-export default BuyerNavbar;
+export default GenericNavbar;
