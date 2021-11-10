@@ -1,5 +1,6 @@
 import React from "react";
 import Router from "next/router";
+import {Acl} from "./../acl";
 import {
   Button,
   Card,
@@ -15,6 +16,7 @@ import Seller from "layouts/Seller.js";
 import Header from "components/Headers/Header.js";
 
 const Dashboard = (props) => {
+  Acl(JSON.stringify(Router.router))
   const navigateToLogin = () =>{
     Router.push("/seller/create_product");
   }

@@ -3,7 +3,7 @@ var routes = [
       path: "/stocktaking",
       name: "Inventario",
       layout: "/buyer",
-      role:""
+      role:"comprador"
     },
   ];
   export default routes;

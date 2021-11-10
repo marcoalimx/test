@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from "react";
+import Router from "next/router";
+import {Acl} from "./../acl";
 import { useQuery } from '@apollo/client';
 import { getProducts } from '../../graphql/queries';
 import {
@@ -48,6 +50,8 @@ const Stocktaking = (props) => {
     onCompleted: (data) => getProductsResponse(data),
     onError: (error) => console.log("error =>", error)
   });
+
+  Acl(JSON.stringify(Router.router))
 
   const keyUpFilter = () => {
     let filter = ''+filterInput;

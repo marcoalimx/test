@@ -35,7 +35,8 @@ function Login() {
     onCompleted({ login }) {
       if (login.statusCode === 200) {
         const response = JSON.parse(login.response);
-        if(response.role == "adminstrador"){
+        saveStorage(response);
+        if(response.role == "administrador"){
           Router.push("/admin/stocktaking");
         }else if (response.role == "vendedor"){
           Router.push("/seller/dashboard");
@@ -48,6 +49,11 @@ function Login() {
     },
     onError(error) {},
   });
+
+  const saveStorage = (response)=>{
+    localStorage.setItem('role', response.role)
+    localStorage.setItem('name', response.name)
+  }
 
   const submitLogin = () =>{
     setErrorLogin("")

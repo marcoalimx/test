@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import Router from "next/router";
 import { useMutation } from '@apollo/client';
 import { create_product } from '../../graphql/mutations';
+import {Acl} from "./../acl";
+
 import {
   Button,
   Card,
@@ -21,7 +23,7 @@ import Seller from "layouts/Seller.js";
 import Header from "components/Headers/Header.js";
 
 const CreateProduct = (props) => {
-
+  Acl(JSON.stringify(Router.router))
   const [nameInput, setNameInput] = useState("");
   const [skuInput, setSkuInput] = useState("");
   const [quantityInput, setQuantityInput] = useState("");

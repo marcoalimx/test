@@ -43,7 +43,7 @@ function Register() {
     onCompleted({ register }) {
       if (register.statusCode === 200) {
         const response = JSON.parse(login.response);
-        if(response.role == "adminstrador"){
+        if(response.role == "administrador"){
           Router.push("/admin/register");
         }else if (response.role == "vendedor"){
           Router.push("/buyer/dashboard");

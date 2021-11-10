@@ -3,13 +3,19 @@ var routes = [
       path: "/dashboard",
       name: "Dashboard",
       layout: "/seller",
-      role:""
+      role:"vendedor"
     },
     {
       path: "/stocktaking",
       name: "Inventario",
       layout: "/seller",
-      role:""
+      role:"vendedor"
+    },
+    {
+      path: "/create_product",
+      name: "",
+      layout: "/seller",
+      role:"vendedor"
     },
   ];
   export default routes;

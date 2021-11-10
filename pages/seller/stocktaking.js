@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import Router from "next/router";
+import {Acl} from "./../acl";
 import { useQuery } from '@apollo/client';
 import { getProductsSeller } from '../../graphql/queries';
 
@@ -28,6 +29,7 @@ const Stocktaking = (props) => {
     onError: (error) => console.log("error =>", error)
   });
 
+  Acl(JSON.stringify(Router.router))
   return (
     <>
       <Header />
