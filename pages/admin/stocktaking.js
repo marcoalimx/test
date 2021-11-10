@@ -27,25 +27,17 @@ const Stocktaking = (props) => {
     border: 0,
     borderTop: '1px solid rgba(0, 0, 0, 0.2)'
   }
-
   const cardStyle = { width: "18rem" };
-
-  const [rangeSlider, setRangeSlider] = useState(50);
-  const [rangeSliderMinValue, setRangeSliderMinValue] = useState(0);
-  const [rangeSliderMaxValue, setRangeSliderMaxValue] = useState(100);
+  
   const [listProducts, setListProducts] = useState([]);
   const [listProductsStatic, setListProductsStatic] = useState([]);
-  const [filterInput, setFilterInput] = useState("");
   const [listProviders, setListProviders] = useState([]);
-  const [filterProviders, setFilterProviders] = useState([]);
-  
   const [badgeFilter, setBadgeFilter] = useState([]);
 
   const getProductsResponse = (dat) => {
     const response = JSON.parse(dat.getProductsAdmin.response)
     setListProducts(response);
     setListProductsStatic(response);
-    getMinMaxPrice();
   };
   const getProductsData = useQuery(getProductsAdmin, {
     onCompleted: (data) => getProductsResponse(data),
@@ -61,32 +53,17 @@ const Stocktaking = (props) => {
     onError: (error) => console.log("error =>", error)
   });
 
-  const keyUpFilter = () => {
-    let filter = ''+filterInput;
-    let listProdructsTemp = listProductsStatic.filter((item) =>{
-      let name = ''+item.name;
-      let sku = ''+item.sku;
-      if(name.toUpperCase().includes(filter.toUpperCase()) || sku.toUpperCase().includes(filter.toUpperCase())){
-        return item;
-      }
-    });
-    setListProducts(listProdructsTemp);
-  }
-
   const clear = () =>{
     setListProducts(listProductsStatic);
     setBadgeFilter([]);
+    var checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+    for(var iterator=0; iterator<= checkboxes.length; iterator++) {
+      if(checkboxes[iterator]?.checked)
+        checkboxes[iterator].checked= false;
+    }  
   }
 
-  const getMinMaxPrice = ()=>{
-    let arrayPrice = [];
-    listProductsStatic.map((item)=>{
-      arrayPrice.push(item.price);
-    });
-    setRangeSliderMinValue(Number(Math.min(...arrayPrice)));
-    setRangeSliderMaxValue(Number(Math.max(...arrayPrice)))
-    setRangeSlider(Number(Math.max(...arrayPrice)) / 2)
-  }
+  
 
   const filterVendor = () =>{
     var arrayFilter = []
@@ -106,6 +83,8 @@ const Stocktaking = (props) => {
     });
     setListProducts(listProdructsTemp);
     setBadgeFilter(arrayFilter)
+    if(arrayFilter.length == 0)
+      setListProducts(listProductsStatic);
   }
 
   return (

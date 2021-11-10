@@ -29,26 +29,28 @@ function Login() {
   const [errorEmailInput, setErrorEmailInput] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [errorPasswordInput, setErrorPasswordInput] = useState(false);
+  const [errorLogin, setErrorLogin] = useState("")
 
   const [loginMutation] = useMutation(login, {
     onCompleted({ login }) {
       if (login.statusCode === 200) {
         const response = JSON.parse(login.response);
         if(response.role == "adminstrador"){
-          Router.push("/admin/register");
+          Router.push("/admin/stocktaking");
         }else if (response.role == "vendedor"){
-          Router.push("/buyer/dashboard");
-        }else if (response.role == "comprador"){
           Router.push("/seller/dashboard");
-        }else{
-          Router.push("/public/dashboard");
+        }else if (response.role == "comprador"){
+          Router.push("/buyer/stocktaking");
         }
+      }else{
+        setErrorLogin("Usuario / Contraseña incorrectos")
       }
     },
     onError(error) {},
   });
 
   const submitLogin = () =>{
+    setErrorLogin("")
     let emailError = false;
     let passwordError = false;
     if(emailInput === ""){
@@ -119,7 +121,11 @@ function Login() {
                   <FormFeedback>{"El campo password es requerido"}</FormFeedback>
                 </InputGroup>
               </FormGroup>
-              
+              <Col style={{textAlign: "center"}}>
+                <span className="text-red" >
+                  {errorLogin}
+                </span>
+              </Col>
               <Row className="my-4">
                 <Col xs="12">
                   <div className="text-center">
