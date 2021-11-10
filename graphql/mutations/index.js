@@ -21,3 +21,14 @@ mutation register($input: registerInput) {
   }
 }
 `;
+
+export const create_product = gql`
+mutation createProduct($input: productInput) {
+  createProduct(input: $input) {
+    statusCode
+    message
+    response
+    error
+  }
+}
+`;

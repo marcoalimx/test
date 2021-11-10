@@ -9,7 +9,7 @@
     "minify:scss": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js assets/scss/nextjs-argon-dashboard.scss assets/css/nextjs-argon-dashboard.min.css --output-style compressed",
     "map:scss": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js assets/scss/nextjs-argon-dashboard.scss assets/css/nextjs-argon-dashboard.css --source-map true",
     "build:scss": "npm run compile:scss && npm run minify:scss && npm run map:scss",
-    "dev": "next dev"
+    "develop": "next dev"
   },
   "dependencies": {
     "@apollo/client": "^3.4.16",
@@ -30,6 +30,7 @@
     "nouislider": "14.6.3",
     "path": "0.12.7",
     "react": "17.0.1",
+    "react-bootstrap-range-slider": "^3.0.3",
     "react-chartjs-2": "2.11.1",
     "react-copy-to-clipboard": "5.0.3",
     "react-datetime": "3.0.4",

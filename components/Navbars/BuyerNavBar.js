@@ -18,7 +18,7 @@ import {
   CardImg
 } from "reactstrap";
 
-function AdminNavbar({ brandText }) {
+function BuyerNavbar({ brandText }) {
   const [actionModal, setactionModal] = useState(false);
   const navigateToLogin = () =>{
     Router.push("/auth/login");
@@ -82,4 +82,4 @@ function AdminNavbar({ brandText }) {
   );
 }
 
-export default AdminNavbar;
+export default BuyerNavbar;

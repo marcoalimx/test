@@ -1,101 +1,70 @@
 import React from "react";
-// node.js library that concatenates classes (strings)
-import classnames from "classnames";
-// javascipt plugin for creating charts
-import Chart from "chart.js";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
-// reactstrap components
+import Router from "next/router";
 import {
   Button,
   Card,
-  CardHeader,
   CardBody,
-  NavItem,
   NavLink,
-  Nav,
-  Progress,
-  Table,
+  CardImg,
   Container,
   Row,
   Col,
 } from "reactstrap";
 // layout for this page
-import Admin from "layouts/Seller.js";
-// core components
-import {
-  chartOptions,
-  parseOptions,
-  chartExample1,
-  chartExample2,
-} from "variables/charts.js";
-
+import Seller from "layouts/Seller.js";
 import Header from "components/Headers/Header.js";
 
 const Dashboard = (props) => {
-  const [activeNav, setActiveNav] = React.useState(1);
-  const [chartExample1Data, setChartExample1Data] = React.useState("data1");
-
-  if (window.Chart) {
-    parseOptions(Chart, chartOptions());
+  const navigateToLogin = () =>{
+    Router.push("/seller/create_product");
   }
-
-  const toggleNavs = (e, index) => {
-    e.preventDefault();
-    setActiveNav(index);
-    setChartExample1Data("data" + index);
-  };
   return (
     <>
       <Header />
       {/* Page content */}
       <Container className="mt--7" fluid>
-        <Row>
-          <Col className="mb-5 mb-xl-0" xl="8">
-            <Card className="shadow">
-              <CardHeader className="bg-transparent">
-                <Row className="align-items-center">
-                  <div className="col">
-                    <h6 className="text-uppercase text-light ls-1 mb-1">
-                      Overview
-                    </h6>
-                    <h2 className="text-white mb-0">Sales value</h2>
-                  </div>
-                  <div className="col">
-                    <Nav className="justify-content-end" pills>
-                      <NavItem>
-                        <NavLink
-                          className={classnames("py-2 px-3", {
-                            active: activeNav === 1,
-                          })}
-                          href="#pablo"
-                          onClick={(e) => toggleNavs(e, 1)}
-                        >
-                          <span className="d-none d-md-block">Month</span>
-                          <span className="d-md-none">M</span>
-                        </NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink
-                          className={classnames("py-2 px-3", {
-                            active: activeNav === 2,
-                          })}
-                          data-toggle="tab"
-                          href="#pablo"
-                          onClick={(e) => toggleNavs(e, 2)}
-                        >
-                          <span className="d-none d-md-block">Week</span>
-                          <span className="d-md-none">W</span>
-                        </NavLink>
-                      </NavItem>
-                    </Nav>
-                  </div>
-                </Row>
-              </CardHeader>
+        <Row className="justify-content-md-center">
+          <Col className="mb-5 mb-xl-0 justify-content-md-center"  lg="10">
+            <Card className="shadow border-0">
               <CardBody>
-               
+              <Row>
+                <Col>
+                  <Card className="bg-dark text-white border-1">
+                    <CardImg
+                      alt="..."
+                      src={require("assets/img/theme/img-1-1000x600.jpg")}
+                      style={{ height: 270 }}
+                    ></CardImg>
+                  </Card>
+                </Col>
+                <Col md="5">
+                  <h1 className="display-3 mb-0">Crea tu</h1>
+                  <h1 className="display-3">producto</h1>
+                  <p className="h2 mb-0">Organiza de manera</p>
+                  <p className="h2">profesional tu inventario</p>
+                  <Row className="mt-5">
+                    <Col md="6">
+                      <NavLink className="text-primary" href="#">
+                        Conocer más
+                      </NavLink>
+                    </Col>
+                    <Col className="p-0"> 
+                      <Button
+                        color="primary"
+                        size="sm"
+                        onClick={navigateToLogin}
+                      >
+                        CREAR PRODUCTO
+                      </Button>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
               </CardBody>
             </Card>
+            <NavLink className="text-primary mt-4" style={{textAlign: "center"}} href="#">
+              Inicia sesión para poder ver tu inventario.
+            </NavLink>
           </Col>
         </Row>
       </Container>
@@ -103,6 +72,6 @@ const Dashboard = (props) => {
   );
 };
 
-Dashboard.layout = Admin;
+Dashboard.layout = Seller;
 
 export default Dashboard;

@@ -1,7 +1,7 @@
 var routes = [
     {
-      path: "/dashboard",
-      name: "Dashboard buyer",
+      path: "/stocktaking",
+      name: "Inventario",
       layout: "/buyer",
       role:""
     },

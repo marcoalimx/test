@@ -10,3 +10,36 @@ export const getProducts = gql`
     }
   }
 `;
+
+export const getProductsSeller = gql`
+  query getProductsSeller {
+    getProductsSeller {
+      statusCode
+      message
+      error
+      response
+    }
+  }
+`;
+
+export const getProductsAdmin = gql`
+  query getProductsAdmin {
+    getProductsAdmin {
+      statusCode
+      message
+      error
+      response
+    }
+  }
+`;
+
+export const getListProviders = gql`
+  query getListProviders {
+    getListProviders {
+      statusCode
+      message
+      error
+      response
+    }
+  }
+`;

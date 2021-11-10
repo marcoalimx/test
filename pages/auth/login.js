@@ -49,20 +49,21 @@ function Login() {
   });
 
   const submitLogin = () =>{
+    let emailError = false;
+    let passwordError = false;
     if(emailInput === ""){
-      console.log("Email requerido")
       setErrorEmailInput(true)
+      emailError = true;
     }else {
       setErrorEmailInput(false)
     }
     if (passwordInput === ""){
-      console.log("Password requerido")
       setErrorPasswordInput(true);
+      passwordError = true;
     }else{
       setErrorPasswordInput(false);
     }
-    if(!errorEmailInput && !errorPasswordInput){
-      console.log("Login")
+    if(!emailError && !passwordError){
       const input = {
         email: emailInput,
         password: passwordInput,
