@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Router from "next/router";
 import {Acl} from "./../acl";
-import { useQuery } from '@apollo/client';
-import { getProductsSeller } from '../../graphql/queries';
+import { useMutation } from '@apollo/client';
+import { getProductsSeller } from '../../graphql/mutations';
 
 import {
   Container,
@@ -15,20 +15,32 @@ import Header from "components/Headers/Header.js";
 
 const Stocktaking = (props) => {
   const [listProducts, setListProducts] = useState([]);
+  const [idSeller, setIdSeller] = useState(0)
+
+  const [getProductsSellerMutation] = useMutation(getProductsSeller, {
+    onCompleted({ getProductsSeller }) {
+      if (getProductsSeller.statusCode === 200) {
+        setListProducts(JSON.parse(getProductsSeller.response));
+      }
+    },
+    onError(error) {},
+  });
+  
+  useEffect(function() {
+    setIdSeller(localStorage.getItem("id"))
+  },[]);
+
+  useEffect(function() {
+    console.log("idSeller =Z ", idSeller);
+    if(idSeller > 0){
+      getProductsSellerMutation({variables: {idSeller: Number(idSeller)} })
+    }
+  },[idSeller]);
 
   const submitCreateProduct = () =>{
     Router.push("/seller/create_product");
   }
-
-  const getProductsResponse = (dat) => {
-    const response = JSON.parse(dat.getProductsSeller.response)
-    setListProducts(response);
-  };
-  const getProductsData = useQuery(getProductsSeller, {
-    onCompleted: (data) => getProductsResponse(data),
-    onError: (error) => console.log("error =>", error)
-  });
-
+  
   Acl(JSON.stringify(Router.router))
   return (
     <>

@@ -53,6 +53,7 @@ function Login() {
   const saveStorage = (response)=>{
     localStorage.setItem('role', response.role)
     localStorage.setItem('name', response.name)
+    localStorage.setItem('id', response.id)
   }
 
   const submitLogin = () =>{

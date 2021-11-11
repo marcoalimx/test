@@ -11,17 +11,6 @@ export const getProducts = gql`
   }
 `;
 
-export const getProductsSeller = gql`
-  query getProductsSeller {
-    getProductsSeller {
-      statusCode
-      message
-      error
-      response
-    }
-  }
-`;
-
 export const getProductsAdmin = gql`
   query getProductsAdmin {
     getProductsAdmin {

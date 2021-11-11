@@ -32,3 +32,14 @@ mutation createProduct($input: productInput) {
   }
 }
 `;
+
+export const getProductsSeller = gql`
+  mutation getProductsSeller ($idSeller: Int) {
+    getProductsSeller (idSeller: $idSeller) {
+      statusCode
+      message
+      error
+      response
+    }
+  }
+`;

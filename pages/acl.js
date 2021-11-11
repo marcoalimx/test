@@ -17,8 +17,6 @@ export function Acl (router) {
     urls.map((items) =>{
         if(`${items.layout}${items.path}` == url){
             let role=`${localStorage.getItem("role")}`;
-            console.log("item rol => ", items.role)
-            console.log("session rol = ", role);
             if(items.role != "publico"){
                 if(!role.includes(items.role)){
                     unauthorizedAccess = true
