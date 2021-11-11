@@ -12,7 +12,7 @@ mutation login($input: loginInput) {
 `;
 
 export const register = gql`
-mutation register($input: registerInput) {
+mutation register($input: loginInput) {
     register(input: $input) {
     statusCode
     message

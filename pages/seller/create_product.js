@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Router from "next/router";
 import { useMutation } from '@apollo/client';
 import { create_product } from '../../graphql/mutations';
@@ -33,8 +33,13 @@ const CreateProduct = (props) => {
   const [errorSkuInput, setErrorSkuInput] = useState(false);
   const [errorQuantityInput, setErrorQuantityInput] = useState(false);
   const [errorPriceInput, setErrorPriceInput] = useState(false);
+  const [idSeller, setIdSeller] = useState(0)
 
   const [response, setResponse] = useState("");
+
+  useEffect(function() {
+    setIdSeller(localStorage.getItem("id"))
+  },[]);
 
   const [CreateProductMutation] = useMutation(create_product, {
     onCompleted({ createProduct }) {
@@ -84,7 +89,8 @@ const CreateProduct = (props) => {
         name: nameInput,
         sku: skuInput,
         quantity: Number(quantityInput),
-        price: priceInput
+        price: priceInput,
+        fk_user: Number(idSeller)
       };      
       CreateProductMutation({  variables: { input }  });
     }

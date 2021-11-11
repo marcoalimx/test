@@ -31,7 +31,6 @@ const Stocktaking = (props) => {
   },[]);
 
   useEffect(function() {
-    console.log("idSeller =Z ", idSeller);
     if(idSeller > 0){
       getProductsSellerMutation({variables: {idSeller: Number(idSeller)} })
     }

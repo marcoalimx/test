@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { useMutation } from '@apollo/client';
 import { register } from '../../graphql/mutations';
+import Router from "next/router";
 
 import Link from "next/link";
 
@@ -25,12 +26,6 @@ import {
 import Auth from "layouts/Auth.js";
 
 function Register() {
-  // const getProductsResponse = (dat) => {
-  //   console.log(dat.getProducts);
-  // };
-  // const getProductsData = useQuery(getProducts, {
-  //   onCompleted: (data) => getProductsResponse(data),
-  // });
 
   const [emailInput, setEmailInput] = useState("");
   const [errorEmailInput, setErrorEmailInput] = useState(false);
@@ -38,20 +33,19 @@ function Register() {
   const [errorPasswordInput, setErrorPasswordInput] = useState(false);
   const [confirmPasswordInput, setConfirmPasswordInput] = useState("");
   const [errorConfirmPasswordInput, setErrorConfirmPasswordInput] = useState(false);
+  const [errorExitsUser, setErrorExitsUser] = useState("");
+  const [errorRegister, setErrorRegister] = useState("");
 
   const [registerMutation] = useMutation(register, {
     onCompleted({ register }) {
       if (register.statusCode === 200) {
-        const response = JSON.parse(login.response);
-        if(response.role == "administrador"){
-          Router.push("/admin/register");
-        }else if (response.role == "vendedor"){
-          Router.push("/buyer/dashboard");
-        }else if (response.role == "comprador"){
-          Router.push("/seller/dashboard");
-        }else{
-          Router.push("/public/dashboard");
-        }
+        const response = JSON.parse(register.response);
+        saveStorage(response);
+        Router.push("/seller/dashboard");
+      }else if (register.statusCode === 201) {
+        setErrorExitsUser(register.message);
+      }else{
+        setErrorRegister("Error al realizar registro")
       }
     },
     onError(error) {},
@@ -59,6 +53,8 @@ function Register() {
 
   const submitRegister = () =>{
     console.log("registrarme")
+    setErrorExitsUser("");
+    setErrorRegister("");
     let emailError = false;
     let passwordError = false;
     let confirmPasswordError = false;
@@ -103,6 +99,12 @@ function Register() {
     setConfirmPasswordInput(value)
   }
 
+  const saveStorage = (response)=>{
+    localStorage.setItem('role', response.role)
+    localStorage.setItem('name', response.name)
+    localStorage.setItem('id', response.id)
+  }
+
   return (
     <>
       <Col lg="6" md="8">
@@ -117,14 +119,19 @@ function Register() {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Email"
+                    placeholder="Correo"
                     type="email"
                     autoComplete="new-email"
                     onChange={(e) => onChangeEmail(`${e.target.value}`)}
                     invalid={errorEmailInput}
                   />
-                  <FormFeedback>{"El campo email es requerido"}</FormFeedback>
+                  <FormFeedback>{"El campo correo es requerido"}</FormFeedback>
                 </InputGroup>
+                <Col style={{textAlign: "left"}}>
+                    <span className="text-red" >
+                      {errorExitsUser}
+                    </span>
+                  </Col>
               </FormGroup>
               <FormGroup>
                 <InputGroup className="input-group-alternative">
@@ -160,6 +167,11 @@ function Register() {
                   <FormFeedback>{"El campo confirmar password es requerido"}</FormFeedback>
                 </InputGroup>
               </FormGroup>
+              <Col style={{textAlign: "center"}}>
+                <span className="text-red" >
+                  {errorRegister}
+                </span>
+              </Col>
               <Row className="my-4">
                 <Col xs="12">
                   <div className="text-center">
